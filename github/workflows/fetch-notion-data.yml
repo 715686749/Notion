@@ -1,0 +1,29 @@
+name: Fetch Notion Data
+
+   on:
+     push:
+       branches:
+         - main
+
+   jobs:
+     fetch:
+       runs-on: ubuntu-latest
+       steps:
+         - name: Checkout repository
+           uses: actions/checkout@v2
+
+         - name: Fetch Notion Data
+           run: |
+             curl -X POST "https://api.notion.com/v1/databases/18935dc5cf168109addbe15ddd7b32e6/query" \
+             -H "Authorization: Bearer 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" \
+             -H "Content-Type: application/json" \
+             -H "Notion-Version: 2022-06-28" \
+             -o notion-data.json
+
+         - name: Commit and push changes
+           run: |
+             git config --global user.name "GitHub Actions"
+             git config --global user.email "actions@github.com"
+             git add notion-data.json
+             git commit -m "Update Notion data"
+             git push
