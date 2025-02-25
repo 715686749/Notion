@@ -2,17 +2,9 @@ const databaseId = '18935dc5cf168109addbe15ddd7b32e6';
    const apiKey = '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';
 
    async function fetchNotionData() {
-       const response = await fetch(`https://api.notion.com/v1/databases/${databaseId}/query`, {
-           method: 'POST',
-           headers: {
-               'Authorization': `Bearer ${apiKey}`,
-               'Content-Type': 'application/json',
-               'Notion-Version': '2022-06-28'
-           }
-       });
-
+       const response = await fetch('notion-data.json');
        const data = await response.json();
-       return data.results;
+       return data;
    }
 
    function displayData(data) {
